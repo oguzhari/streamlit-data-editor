@@ -35,14 +35,14 @@ edited_df = st.experimental_data_editor(dataframe, num_rows="dynamic")
 st.write(f"Last Record: **{edited_df.Name.iloc[-1]}**'s BMI result is "
          f"{bmi_calc(edited_df.Weight.iloc[-1], edited_df.Height.iloc[-1]):.2f}, "
          f"this considering as "
-         f"'{bmi_result_classifier(bmi_calc(edited_df.Weight.iloc[-1], edited_df.Height.iloc[-1]),edited_df.Gender.iloc[-1])}'")
+         f"'{bmi_result_classifier(bmi_calc(edited_df.Weight.iloc[-1], edited_df.Height.iloc[-1]))}'")
 
 if edited_df.iloc[-1].isnull().values.any():
     for index, record in edited_df[:-1].iterrows():
         last_record_name = record['Name']
         last_record_gender = record.Gender
         last_record_bmi = record.Weight / (record.Height / 100) ** 2
-        last_record_label = bmi_result_classifier(last_record_bmi, last_record_gender)
+        last_record_label = bmi_result_classifier(last_record_bmi)
         last_calculations.append([last_record_name, last_record_gender, last_record_bmi, last_record_label])
         last_data_size = len(edited_df)
 else:
@@ -51,7 +51,7 @@ else:
             last_record_name = record['Name']
             last_record_gender = record.Gender
             last_record_bmi = record.Weight / (record.Height / 100) ** 2
-            last_record_label = bmi_result_classifier(last_record_bmi, last_record_gender)
+            last_record_label = bmi_result_classifier(last_record_bmi)
             last_calculations.append([last_record_name, last_record_gender, last_record_bmi, last_record_label])
             last_data_size = len(edited_df)
 
