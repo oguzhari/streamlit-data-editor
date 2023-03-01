@@ -8,25 +8,16 @@ def bmi_calc(weight, height):
     return weight / (height / 100) ** 2
 
 
-def bmi_result_classifier(bmi, gender):
-    if gender == "Male":
-        if bmi < 18.5:
-            return "Underweight"
-        elif bmi < 25:
-            return "Normal"
-        elif bmi < 30:
-            return "Overweight"
-        else:
-            return "Obese"
+def bmi_result_classifier(bmi):
+    if bmi < 18.5:
+        return "Underweight"
+    elif bmi < 25:
+        return "Normal"
+    elif bmi < 30:
+        return "Overweight"
     else:
-        if bmi < 17.5:
-            return "Underweight"
-        elif bmi < 24:
-            return "Normal"
-        elif bmi < 29:
-            return "Overweight"
-        else:
-            return "Obese"
+        return "Obese"
+
 
 
 data_list = {"Name": ["Oğuzhan"],
@@ -44,7 +35,7 @@ edited_df = st.experimental_data_editor(dataframe, num_rows="dynamic")
 st.write(f"Last Record: **{edited_df.Name.iloc[-1]}**'s BMI result is "
          f"{bmi_calc(edited_df.Weight.iloc[-1], edited_df.Height.iloc[-1]):.2f}, "
          f"this considering as "
-         f"{bmi_result_classifier(bmi_calc(edited_df.Weight.iloc[-1], edited_df.Height.iloc[-1]),edited_df.Gender.iloc[-1])}")
+         f"'{bmi_result_classifier(bmi_calc(edited_df.Weight.iloc[-1], edited_df.Height.iloc[-1]),edited_df.Gender.iloc[-1])}'")
 
 if edited_df.iloc[-1].isnull().values.any():
     for index, record in edited_df[:-1].iterrows():
